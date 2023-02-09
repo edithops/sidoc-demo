@@ -1,0 +1,20 @@
+{
+  "datadir": "./data",
+  "groupby": "instance",
+  "id": "test",
+  "latest": true,
+  "meta": {
+    "author": {
+      "email": "test@email.com",
+      "name": "test name"
+    },
+    "customer": "test customer",
+    "date": "",
+    "org": "Test 公司",
+    "title": "Test 报告",
+    "config": {
+      "appnames":{}
+    }
+  },
+  "output": "reports/{{customer}} - {{instance}}@{{hostname}} - Test报告 - {{yymmdd}}"
+}

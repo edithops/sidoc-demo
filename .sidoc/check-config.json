@@ -1,0 +1,15 @@
+{
+    "checks": [
+        {
+            "expr": "//TestStatus/*/check", 
+            "rule": "test.rule",
+            "params": [
+                {
+                    "key": "_scope",
+                    "value": "check"
+                }
+            ]
+        }
+    ],
+    "rulesDir": "./rules"
+}
