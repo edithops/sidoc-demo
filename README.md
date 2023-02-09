@@ -125,36 +125,54 @@ Sidoc 不仅支持 Markdown 语法，还可以集成 Pandoc 生成 Doc 文档。
 
 ```json
 {
-    "checks": [
+  "checks": [
+    {
+      "expr": "//TestStatus/*/check",
+      "rule": "test.rule",
+      "params": [
         {
-            "expr": "//TestStatus/*/check", 
-            "rule": "test.rule",
-            "params": [
-                {
-                    "key": "_scope",
-                    "value": "check"
-                },
-                {
-                    "key": "_name",
-                    "expr": "../host/hostname"
-                },
-                {
-                    "key": "_iid",
-                    "expr": "../edith/flags/path"
-                }
-            ]
+          "key": "_scope",
+          "value": "check"
+        },
+        {
+          "key": "_name",
+          "expr": "../host/hostname"
+        },
+        {
+          "key": "_iid",
+          "expr": "../edith/flags/path"
         }
-    ],
-    "rulesDir": "./rules"
+      ]
+    }
+  ],
+  "rulesDir": "./rules"
 }
 ```
 
 ### 文档模板
 
-文档模板内容的修改仅涉及 Doc 文档的观赏性，不影响数据生成
+文档模板内容的修改仅涉及报告的观赏性，不影响实际数据
 
 ```bash
-./.sidoc/template.docx
+./.sidoc/template/main.md
+```
+
+```gotemplate
+{{define "main"}}
+
+{{ range $actualValue := .problems }}
+    {{ range $checkItemKey, $checkItemValue := $actualValue }}
+        {{ if eq $checkItemKey "actual"}}
+
+| 检查项 | 值 | 状态 |
+|:---|:---|:---|{{ range $checkItemValue }}
+| {{ .name }} | {{ .value }} | {{ .status }} |{{ end }}
+
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{end}}
 ```
 
 ### 署名
